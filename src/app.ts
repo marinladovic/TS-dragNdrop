@@ -42,28 +42,6 @@ class Project {
  * @param items - array of projects
  */
 type Listener<T> = (items: T[]) => void;
-
-/**
- * PROJECT STATE MANAGEMENT - SINGLETON CLASS
- * this is responsible for managing the state of the project
- * it is a singleton class, so only one instance of this class can exist
- *
- * this class is responsible for:
- * a. storing the projects
- * b. adding new projects
- * c. updating existing projects
- * d. listening to changes in the state
- * e. notifying listeners of changes in the state
- *
- * 1. create a private constructor so that no other instance of this class can be created
- * 2. create a private instance of this class
- * 3. create a getter method to return the instance of this class
- * 4. create a private array to store the projects
- * 5. create a private array to store the listeners
- * 6. create a method to add a new listener
- * 7. create a method to add a new project
- */
-
 class State<T> {
   /** 5 */
   protected listeners: Listener<T>[] = [];
@@ -277,17 +255,6 @@ class ProjectItem
   }
 }
 
-/**
- * ProjectList Class - responsible for rendering the list of projects
- *
- * 1. Create the constructor that selects the template element and the host element from the DOM
- * and assigns them to the class properties
- * 2. Create a copy of the template element and assign its first element child to the section element property
- * 3. Assign the id of the section element to the type of the project list
- * 4. Attach the section element to the host element
- * 5. Render the content of the section element based on the type of the project list
- * 6. Listen for changes in the state of the project and render the projects
- */
 class ProjectList
   extends Component<HTMLDivElement, HTMLElement>
   implements DragTarget
@@ -324,7 +291,7 @@ class ProjectList
   }
 
   @autobind
-  dragLeaveHandler(event: DragEvent) {
+  dragLeaveHandler(_: DragEvent) {
     const listEl = this.element.querySelector("ul")!;
     listEl.classList.remove("droppable");
   }
@@ -367,21 +334,6 @@ class ProjectList
   }
 }
 
-/**
- * ProjectInput Class - responsible for rendering the form to add a
- * new project and handling the form submission event
- *
- * 1. Create the constructor that selects the template element and the host element from the DOM
- * and assigns them to the class properties
- * 2. Create a copy of the template element and assign its first element child to the form element property
- * 3. Get the form inputs and assign them to the class properties
- * 4. Attach the form element to the host element
- * 5. Listen for the submit event on the form element
- * 6. Get the values from the form inputs and validate them
- * 7. Create a new project and add it to the state
- * 8. Clear the form inputs
- *
- */
 class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
   titleInputEl: HTMLInputElement;
   descriptionInputEl: HTMLInputElement;
